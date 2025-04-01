@@ -77,19 +77,37 @@
     <button onclick="mostrarMapaPorFecha()">Ver Mapa para esta fecha</button>
     
     <h2>Desvíos y Fechas</h2>
-    <p id="desvioActual"></p>
+    <ul id="desviosLista"></ul>
   </div>
 
   <script>
     const fechaInicio = new Date(2025, 2, 31);
+    const desvios = [
+      "Desvío 1: 31/03/25 - 07/04/25",
+      "Desvío 2: 07/04/25 - 14/04/25",
+      "Desvío 3: 14/04/25 - 21/04/25",
+      "Desvío 4: 21/04/25 - 28/04/25",
+      "Desvío 5: 28/04/25 - 05/05/25",
+      "Desvío 6: 05/05/25 - 12/05/25",
+      "Desvío 7: 12/05/25 - 19/05/25",
+      "Desvío 8: 19/05/25 - 26/05/25",
+      "Desvío 9: 26/05/25 - 02/06/25",
+      "Desvío 10: 02/06/25 - 09/06/25",
+      "Desvío 11: 09/06/25 - 16/06/25",
+      "Desvío 12: 16/06/25 - 23/06/25",
+      "Desvío 13: 23/06/25 - 30/06/25",
+      "Desvío 14: 30/06/25 - 07/07/25",
+      "Desvío 15: 07/07/25 - 14/07/25",
+      "Desvío 16: 14/07/25 - 21/07/25"
+    ];
 
     function getMapaPorFecha(fecha) {
         let diasTranscurridos = Math.floor((fecha - fechaInicio) / (1000 * 60 * 60 * 24));
-        let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 7) + 1);
+        let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 7) + 1);  // Cambio aquí de 14 a 7
         let fechaInicioMapa = new Date(fechaInicio);
-        fechaInicioMapa.setDate(fechaInicioMapa.getDate() + (numeroMapa - 1) * 7);
+        fechaInicioMapa.setDate(fechaInicioMapa.getDate() + (numeroMapa - 1) * 7);  // Cambio aquí de 14 a 7
         let fechaFinMapa = new Date(fechaInicioMapa);
-        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 7);
+        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 7);  // Cambio aquí de 14 a 7
         return {
             archivo: `mapa_desvios${numeroMapa}.html`,
             inicio: fechaInicioMapa.toLocaleDateString(),
@@ -102,7 +120,7 @@
         let hoy = new Date();
         let mapaInfo = getMapaPorFecha(hoy);
         document.getElementById("tituloMapa").innerText = `Cierre Vigente: Mapa ${mapaInfo.numero} (${mapaInfo.inicio} - ${mapaInfo.fin})`;
-        document.getElementById("desvioActual").innerText = `Desvío ${mapaInfo.numero}: ${mapaInfo.inicio} - ${mapaInfo.fin}`;
+        document.getElementById("desviosLista").innerHTML = `<li>${desvios[mapaInfo.numero - 1]}</li>`;
         return mapaInfo.archivo;
     }
 
