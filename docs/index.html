@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>PMT CARRERA 14 RENOVACION REDES SOGAMOSO</title>
+  <title>PMT CARRERA 14 - Renovación Redes Sogamoso</title>
 </head>
 <body>
 
@@ -15,34 +15,89 @@
     <strong>OBJETO DEL CONTRATO:</strong> Renovación de redes de alcantarillado método convencional y acueducto por el método Pipe Bursting en la Carrera 14 entre Calles 11 y Transversal 17 del municipio de Sogamoso.
   </p>
 
-  <!-- Botón para abrir el mapa en una nueva pestaña -->
-  <button onclick="window.open(getMapaActual(), '_blank')">Ver Mapa en otra pestaña</button>
+  <!-- Mostrar el cierre vigente automáticamente -->
+  <h2 id="tituloMapa">Cierre Vigente:</h2>
 
-  <!-- Botón para mostrar el mapa en la misma página -->
-  <button onclick="mostrarMapa()">Ver Mapa aquí</button>
+  <!-- Botón para abrir el mapa vigente en una nueva pestaña -->
+  <button onclick="window.open(getMapaActual(), '_blank')">Ver Mapa Vigente en otra pestaña</button>
+
+  <!-- Botón para mostrar el mapa vigente en la misma página -->
+  <button onclick="mostrarMapa()">Ver Mapa Vigente aquí</button>
 
   <!-- Contenedor del mapa (inicialmente oculto) -->
   <div id="mapaContainer" style="display: none; margin-top: 20px;">
     <iframe id="mapaFrame" width="100%" height="500px" style="border: none;"></iframe>
   </div>
 
+  <hr>
+
+  <!-- Selección de fecha para ver futuros cierres -->
+  <h2>Consulta un Cierre por Fecha</h2>
+  <label for="fechaInput">Selecciona una fecha:</label>
+  <input type="date" id="fechaInput">
+  <button onclick="mostrarMapaPorFecha()">Ver Mapa para esta fecha</button>
+
+  <!-- Contenedor del mapa seleccionado manualmente -->
+  <div id="mapaSeleccionadoContainer" style="display: none; margin-top: 20px;">
+    <h3 id="tituloMapaSeleccionado"></h3>
+    <iframe id="mapaSeleccionadoFrame" width="100%" height="500px" style="border: none;"></iframe>
+  </div>
+
   <script>
-    // Función para calcular el mapa según la fecha actual
-    function getMapaActual() {
-        let fechaInicio = new Date(2025, 2, 31); // 31 de marzo de 2025 (mes en JS es 0-based, 2=marzo)
-        let hoy = new Date();
-        let diasTranscurridos = Math.floor((hoy - fechaInicio) / (1000 * 60 * 60 * 24));
-        let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 14) + 1); // Cada 14 días cambia
-        return `mapa_desvios${numeroMapa}.html`;
+    // Fecha de inicio del primer cierre (31 de marzo de 2025)
+    const fechaInicio = new Date(2025, 2, 31); // (Mes en JS es 0-based, 2 = marzo)
+
+    // Función para calcular el mapa según una fecha dada
+    function getMapaPorFecha(fecha) {
+        let diasTranscurridos = Math.floor((fecha - fechaInicio) / (1000 * 60 * 60 * 24));
+        let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 14) + 1);
+        let fechaInicioMapa = new Date(fechaInicio);
+        fechaInicioMapa.setDate(fechaInicioMapa.getDate() + (numeroMapa - 1) * 14);
+        let fechaFinMapa = new Date(fechaInicioMapa);
+        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 13);
+        return {
+            archivo: `mapa_desvios${numeroMapa}.html`,
+            inicio: fechaInicioMapa.toLocaleDateString(),
+            fin: fechaFinMapa.toLocaleDateString(),
+            numero: numeroMapa
+        };
     }
 
-    // Función para mostrar el mapa en la misma página
+    // Función para obtener el mapa vigente según la fecha actual
+    function getMapaActual() {
+        let hoy = new Date();
+        let mapaInfo = getMapaPorFecha(hoy);
+        document.getElementById("tituloMapa").innerText = `Cierre Vigente: Mapa ${mapaInfo.numero} (${mapaInfo.inicio} - ${mapaInfo.fin})`;
+        return mapaInfo.archivo;
+    }
+
+    // Mostrar el mapa vigente en la página
     function mostrarMapa() {
         let mapaSrc = getMapaActual();
         document.getElementById("mapaFrame").src = mapaSrc;
         document.getElementById("mapaContainer").style.display = "block";
     }
+
+    // Mostrar un mapa según la fecha seleccionada
+    function mostrarMapaPorFecha() {
+        let fechaSeleccionada = new Date(document.getElementById("fechaInput").value);
+        if (isNaN(fechaSeleccionada)) {
+            alert("Por favor, selecciona una fecha válida.");
+            return;
+        }
+        let mapaInfo = getMapaPorFecha(fechaSeleccionada);
+        document.getElementById("tituloMapaSeleccionado").innerText = `Mapa ${mapaInfo.numero} (${mapaInfo.inicio} - ${mapaInfo.fin})`;
+        document.getElementById("mapaSeleccionadoFrame").src = mapaInfo.archivo;
+        document.getElementById("mapaSeleccionadoContainer").style.display = "block";
+    }
+
+    // Actualizar título del cierre vigente al cargar la página
+    getMapaActual();
   </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
