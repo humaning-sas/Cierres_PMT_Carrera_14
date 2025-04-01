@@ -54,7 +54,7 @@
         let fechaInicioMapa = new Date(fechaInicio);
         fechaInicioMapa.setDate(fechaInicioMapa.getDate() + (numeroMapa - 1) * 14);
         let fechaFinMapa = new Date(fechaInicioMapa);
-        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 13);
+        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 14);
         return {
             archivo: `mapa_desvios${numeroMapa}.html`,
             inicio: fechaInicioMapa.toLocaleDateString(),
