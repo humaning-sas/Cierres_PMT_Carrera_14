@@ -64,77 +64,49 @@
 
   <div id="sidebar">
     <h1>¡Bienvenidos al sitio!</h1>
-    <p>
-      Este es el sitio del plan de manejo de tránsito, cierres y desvíos de las obras de renovación de redes.
-      <br>
-      <strong>CONTRATO No.40 de 2025</strong>
-      <br>
-      <strong>OBJETO DEL CONTRATO:</strong> Renovación de redes de alcantarillado método convencional y acueducto por el método Pipe Bursting en la Carrera 14 entre Calles 11 y Transversal 17 del municipio de Sogamoso.
-    </p>
-
+    <p>Este es el sitio del plan de manejo de tránsito, cierres y desvíos de las obras de renovación de redes.</p>
     <h2 id="tituloMapa">Cierre Vigente:</h2>
 
     <button onclick="window.open(getMapaActual(), '_blank')">Ver Mapa Vigente en otra pestaña</button>
     <button onclick="mostrarMapa()">Ver Mapa Vigente aquí</button>
-
     <hr>
 
     <h2>Consulta un Cierre por Fecha</h2>
     <label for="fechaInput">Selecciona una fecha:</label>
     <input type="date" id="fechaInput">
     <button onclick="mostrarMapaPorFecha()">Ver Mapa para esta fecha</button>
-
-    <h2>Desvíos Actuales</h2>
-    <ul id="desviosList">
-      <!-- Los desvíos se agregarán aquí dinámicamente -->
+    
+    <h2>Desvíos y Fechas</h2>
+    <ul>
+      <li id="id1">Desvío 1: 31/03/25 - 14/04/25</li>
+      <li id="id2">Desvío 2: 14/04/25 - 28/04/25</li>
+      <li id="id3">Desvío 3: 28/04/25 - 12/05/25</li>
+      <li id="id4">Desvío 4: 12/05/25 - 26/05/25</li>
+      <li id="id5">Desvío 5: 26/05/25 - 09/06/25</li>
+      <li id="id6">Desvío 6: 09/06/25 - 23/06/25</li>
+      <li id="id7">Desvío 7: 23/06/25 - 07/07/25</li>
+      <li id="id8">Desvío 8: 07/07/25 - 21/07/25</li>
+      <li id="id9">Desvío 9: 21/07/25 - 04/08/25</li>
+      <li id="id10">Desvío 10: 04/08/25 - 18/08/25</li>
+      <li id="id11">Desvío 11: 18/08/25 - 01/09/25</li>
+      <li id="id12">Desvío 12: 01/09/25 - 15/09/25</li>
+      <li id="id13">Desvío 13: 15/09/25 - 29/09/25</li>
+      <li id="id14">Desvío 14: 29/09/25 - 13/10/25</li>
+      <li id="id15">Desvío 15: 13/10/25 - 27/10/25</li>
+      <li id="id16">Desvío 16: 27/10/25 - 10/11/25</li>
     </ul>
   </div>
 
   <script>
-    // Fecha de inicio del primer cierre (31 de marzo de 2025)
-    const fechaInicio = new Date(2025, 2, 31); // (Mes en JS es 0-based, 2 = marzo)
+    const fechaInicio = new Date(2025, 2, 31);
 
-    const desvios = [
-      { id: 1, texto: "Desvío Cierre 1 Calzada W Sentido N-S Cl 20 a Cl 19\nDirígete al oeste por San Martin 12 hacia Cra. 12.\n44 m\nGira a la izquierda en la 1ª intersección hacia Cra. 12.\n273 m\nGira a la derecha con dirección a Cl. 18\n69 m\nGira a la izquierda en la 1ª intersección hacia Cra. 14.\n152 m", coordenadas: [4.594, -74.073] },
-      { id: 2, texto: "Desvío Cierre 2 Calzada W Sentido N-S Cl 19 a Cl 18\nDirígete al oeste por San Martin 12 hacia Cra. 12.\n49 m\nGira a la izquierda en la 1ª intersección hacia Cra. 12.\n564 m\nGira a la derecha con dirección a Cl. 15\n142 m\nGira a la izquierda con dirección a Cra. 14\n58 m", coordenadas: [4.593, -74.074] },
-      { id: 3, texto: "Desvío Cierre 3 Calzada W Sentido N-S Cl 18 a Cl 17\nDirígete al oeste por San Martin 12 hacia Cra. 12.\n54 m\nGira levemente a la izquierda con dirección a Cra. 14\n155 m\nGira a la izquierda en la 1ª intersección hacia Cl. 19.\n52 m\nGira a la derecha en la 1ª intersección hacia Cra. 12.\n418 m\nGira a la derecha con dirección a Cl. 15\n142 m\nGira a la izquierda con dirección a Cra. 14\n24 m", coordenadas: [4.592, -74.075] },
-      { id: 4, texto: "Desvío Cierre 4 Calzada W Sentido N-S Cl 17 a Cl 16\nDirígete al oeste por San Martin 12 hacia Cra. 12.\n42 m\nGira levemente a la izquierda con dirección a Cra. 14\n155 m\nGira a la izquierda en la 1ª intersección hacia Cl. 19.\n52 m\nGira a la derecha en la 1ª intersección hacia Cra. 12.\n418 m\nGira a la derecha con dirección a Cl. 15\n142 m\nGira a la izquierda con dirección a Cra. 14\n46 m", coordenadas: [4.591, -74.076] },
-      { id: 5, texto: "Desvío Cierre 5 Calzada W Sentido N-S Cl 16 a Cl 15\nDirígete al oeste por San Martin 12 hacia Cra. 12.\n47 m\nGira levemente a la izquierda con dirección a Cra. 14\n362 m\nGira a la izquierda con dirección a Cl. 17\n96 m\nGira a la derecha con dirección a Cra. 12\n211 m\nGira a la derecha con dirección a Cl. 15\n142 m\nGira a la izquierda con dirección a Cra. 14\n47 m", coordenadas: [4.590, -74.077] },
-      { id: 6, texto: "Desvío Cierre 6 Calzada E Sentido S-N Cl 19 a Cl 20\nDirígete al nordeste por Cra. 14 hacia Dg. 14a.\n191 m\nGira a la derecha con dirección a Cl. 16\n63 m\nGira a la izquierda en la 1ª intersección hacia Cra 13.\n93 m\nGira a la izquierda con dirección a Cl. 17\n142 m\nGira a la derecha con dirección a Cra 16\n261 m\nCra 16 gira a la derecha y se convierte en San Martin 16\n89 m\nGira a la izquierda con dirección a Cra. 12\n148 m", coordenadas: [4.589, -74.078] },
-      { id: 7, texto: "Desvío Cierre 7 Calzada E Sentido S-N Cl 18 a Cl 19\nDirígete al nordeste por Cra. 14 hacia Cl. 15.\n141 m\nGira a la derecha con dirección a Cl. 16\n63 m\nGira a la izquierda en la 1ª intersección hacia Cra 13.\n93 m\nGira a la izquierda con dirección a Cl. 17\n142 m\nGira a la derecha con dirección a Cra 16\n261 m\nCra 16 gira a la derecha y se convierte en San Martin 16\n89 m\nContinúa por San Martin 12\n170 m", coordenadas: [4.588, -74.079] },
-      { id: 8, texto: "Desvío Cierre 8 Calzada E Sentido S-N Cl 17 a Cl 16\nDirígete al nordeste por Cra. 14 hacia Cl. 15.\n30 m\nGira a la derecha con dirección a Cl. 15\n74 m\nGira a la izquierda en la 1ª intersección hacia Cra 13.\n125 m\nGira a la izquierda con dirección a Cl. 16\n159 m\nGira a la derecha con dirección a Cra 16\n348 m\nCra 16 gira a la derecha y se convierte en San Martin 16\n89 m\nContinúa por San Martin 12El destino está a la derecha.\n53 m", coordenadas: [4.587, -74.080] },
-      { id: 9, texto: "Desvío Cierre 9 Calzada E Sentido S-N Cl 16 a Cl 17\nDirígete al nordeste por Cra. 14 hacia Dg. 14a.\n203 m\nGira a la derecha con dirección a Cl. 16\n63 m\nGira a la izquierda en la 1ª intersección hacia Cra 13.\n93 m\nGira a la izquierda con dirección a Cl. 17\n45 m\nGira a la derecha en la 1ª intersección hacia Cra. 14.\n331 m\nGira levemente a la derecha con dirección a San Martin 12\n171 m\nContinúa por Cl. 21\n119 m\nGira a la izquierda con dirección a Cra. 11\n110 m", coordenadas: [4.586, -74.081] },
-      { id: 10, texto: "Desvío Cierre 10 Calzada E Sentido S-N Cl 15 a Cl 16\nDirígete al nordeste por Cra. 14 hacia Cl. 15.\n49 m\nGira a la derecha con dirección a Cl. 15\n74 m\nGira a la izquierda en la 1ª intersección hacia Cra 13.\n218 m\nGira a la izquierda con dirección a Cl. 17\n45 m\nGira a la derecha en la 1ª intersección hacia Cra. 14.\n331 m\nGira levemente a la derecha con dirección a San Martin 12\n106 m", coordenadas: [4.585, -74.082] },
-      { id: 11, texto: "Desvío Cierre 11 Calzada E Sentido S-N Cl 15 a Cl 16\nDirígete al noroeste por Cl. 12A/Dg. 13 hacia Cra. 14.\n7 m\nGira a la derecha en la 1ª intersección hacia Cra. 14.\n29 m\nGira a la derecha con dirección a Cl. 13\n103 m\nGira a la izquierda en la 1ª intersección hacia Cra 13.\n369 m\nGira a la izquierda con dirección a Cl. 16\n63 m", coordenadas: [4.584, -74.083] },
-      { id: 12, texto: "Desvío Cierre 12 Carrera 14 Cl Dg 14 a Cl 14\nDirígete al noroeste por Cl. 12A/Dg. 13 hacia Cra. 14.\n7 m\nGira a la derecha en la 1ª intersección hacia Cra. 14.\n29 m\nGira a la derecha con dirección a Cl. 13\n103 m\nGira a la izquierda en la 1ª intersección hacia Cra 13.\n369 m\nGira a la izquierda con dirección a Cl. 16\n63 m", coordenadas: [4.583, -74.084] },
-      { id: 13, texto: "Desvío Cierre 13 Carrera 14 Cl 14 a Cl 13\nDirígete al noroeste por Cl. 12A/Dg. 13 hacia Cra. 14.\n7 m\nGira a la derecha en la 1ª intersección hacia Cra. 14.\n29 m\nGira a la derecha con dirección a Cl. 13\n103 m\nGira a la izquierda en la 1ª intersección hacia Cra 13.\n369 m\nGira a la izquierda con dirección a Cl. 16\n63 m", coordenadas: [4.582, -74.085] },
-      { id: 14, texto: "Desvío Cierre 14 Carrera 14 Cl 12A a Cl 14\nDirígete al norte por Cra. 13 hacia Cl. 17.\n16 m\nGira a la izquierda con dirección a Cl. 17\n56 m\nGira a la izquierda con dirección a Cra 13\n227 m\nGira a la derecha con dirección a Cra. 14\n49 m", coordenadas: [4.581, -74.086] },
-      { id: 15, texto: "Desvío Cierre 15 Calzada E Sentido S-N Cl 14 a Cl 15\nDirígete al este por San Martin 12 hacia Cra. 13.\n72 m\nGira a la izquierda con dirección a Cra. 13.\n85 m\nGira a la derecha en la 1ª intersección hacia Cra. 14.", coordenadas: [4.580, -74.087] },
-      { id: 16, texto: "Desvío Cierre 16 Calzada E Sentido S-N Cl 13 a Cl 14\nDirígete al este por San Martin 12 hacia Cra. 13.\n110 m\nGira a la izquierda en la 1ª intersección hacia Cra. 12.\n53 m\nGira a la derecha con dirección a Cl. 17.\n132 m", coordenadas: [4.579, -74.088] }
-    ];
-
-
-    // Mostrar los desvíos en la página
-    function mostrarDesvios() {
-      const listaDesvios = document.getElementById("desviosList");
-      desvios.forEach(desvio => {
-        const item = document.createElement("li");
-        item.innerHTML = `<strong>Desvío ${desvio.id}:</strong> ${desvio.texto}`;
-        listaDesvios.appendChild(item);
-      });
-    }
-
-    // Fecha de inicio del primer cierre (31 de marzo de 2025)
-    const fechaInicio = new Date(2025, 2, 31); // (Mes en JS es 0-based, 2 = marzo)
-
-    // Función para calcular el mapa según una fecha dada
     function getMapaPorFecha(fecha) {
         let diasTranscurridos = Math.floor((fecha - fechaInicio) / (1000 * 60 * 60 * 24));
-        let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 7) + 1);
+        let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 14) + 1);
         let fechaInicioMapa = new Date(fechaInicio);
-        fechaInicioMapa.setDate(fechaInicioMapa.getDate() + (numeroMapa - 1) * 7);
+        fechaInicioMapa.setDate(fechaInicioMapa.getDate() + (numeroMapa - 1) * 14);
         let fechaFinMapa = new Date(fechaInicioMapa);
-        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 7);
+        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 14);
         return {
             archivo: `mapa_desvios${numeroMapa}.html`,
             inicio: fechaInicioMapa.toLocaleDateString(),
@@ -143,7 +115,6 @@
         };
     }
 
-    // Función para obtener el mapa vigente según la fecha actual
     function getMapaActual() {
         let hoy = new Date();
         let mapaInfo = getMapaPorFecha(hoy);
@@ -151,14 +122,12 @@
         return mapaInfo.archivo;
     }
 
-    // Mostrar el mapa vigente en la página
     function mostrarMapa() {
         let mapaSrc = getMapaActual();
         document.getElementById("mapaFrame").src = mapaSrc;
         document.getElementById("mapaContainer").style.display = "block";
     }
 
-    // Mostrar un mapa según la fecha seleccionada
     function mostrarMapaPorFecha() {
         let fechaSeleccionada = new Date(document.getElementById("fechaInput").value);
         if (isNaN(fechaSeleccionada)) {
@@ -171,15 +140,12 @@
         document.getElementById("mapaSeleccionadoContainer").style.display = "block";
     }
 
-    // Actualizar título del cierre vigente al cargar la página
     getMapaActual();
-
-    // Mostrar los desvíos al cargar la página
-    mostrarDesvios();
   </script>
 
 </body>
 </html>
+
 
 
 
