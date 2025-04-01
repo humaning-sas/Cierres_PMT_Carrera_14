@@ -3,44 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <title>PMT CARRERA 14 - Renovación Redes Sogamoso</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    #mapContainer {
+      width: 75%;
+      height: 100vh;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    #sidebar {
+      width: 25%;
+      height: 100vh;
+      background-color: #f4f4f4;
+      padding: 20px;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+    h1, h2, h3 {
+      font-size: 22px;
+      color: #333;
+    }
+    p {
+      font-size: 16px;
+      color: #666;
+    }
+    button {
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>¡Bienvenidos al sitio!</h1>
-  <p>
-    Este es el sitio del plan de manejo de tránsito, cierres y desvíos de las obras de renovación de redes.  
-    <br>
-    <strong>CONTRATO No.40 de 2025</strong>  
-    <br>
-    <strong>OBJETO DEL CONTRATO:</strong> Renovación de redes de alcantarillado método convencional y acueducto por el método Pipe Bursting en la Carrera 14 entre Calles 11 y Transversal 17 del municipio de Sogamoso.
-  </p>
-
-  <!-- Mostrar el cierre vigente automáticamente -->
-  <h2 id="tituloMapa">Cierre Vigente:</h2>
-
-  <!-- Botón para abrir el mapa vigente en una nueva pestaña -->
-  <button onclick="window.open(getMapaActual(), '_blank')">Ver Mapa Vigente en otra pestaña</button>
-
-  <!-- Botón para mostrar el mapa vigente en la misma página -->
-  <button onclick="mostrarMapa()">Ver Mapa Vigente aquí</button>
-
-  <!-- Contenedor del mapa (inicialmente oculto) -->
-  <div id="mapaContainer" style="display: none; margin-top: 20px;">
-    <iframe id="mapaFrame" width="60%" height="400px" style="border: none;"></iframe>
+  <div id="mapContainer">
+    <div id="mapaContainer" style="display: none; margin-top: 20px;">
+      <iframe id="mapaFrame"></iframe>
+    </div>
+    <div id="mapaSeleccionadoContainer" style="display: none; margin-top: 20px;">
+      <h3 id="tituloMapaSeleccionado"></h3>
+      <iframe id="mapaSeleccionadoFrame"></iframe>
+    </div>
   </div>
 
-  <hr>
+  <div id="sidebar">
+    <h1>¡Bienvenidos al sitio!</h1>
+    <p>
+      Este es el sitio del plan de manejo de tránsito, cierres y desvíos de las obras de renovación de redes.
+      <br>
+      <strong>CONTRATO No.40 de 2025</strong>
+      <br>
+      <strong>OBJETO DEL CONTRATO:</strong> Renovación de redes de alcantarillado método convencional y acueducto por el método Pipe Bursting en la Carrera 14 entre Calles 11 y Transversal 17 del municipio de Sogamoso.
+    </p>
 
-  <!-- Selección de fecha para ver futuros cierres -->
-  <h2>Consulta un Cierre por Fecha</h2>
-  <label for="fechaInput">Selecciona una fecha:</label>
-  <input type="date" id="fechaInput">
-  <button onclick="mostrarMapaPorFecha()">Ver Mapa para esta fecha</button>
+    <h2 id="tituloMapa">Cierre Vigente:</h2>
 
-  <!-- Contenedor del mapa seleccionado manualmente -->
-  <div id="mapaSeleccionadoContainer" style="display: none; margin-top: 20px;">
-    <h3 id="tituloMapaSeleccionado"></h3>
-    <iframe id="mapaSeleccionadoFrame" width="60%" height="400px" style="border: none;"></iframe>
+    <button onclick="window.open(getMapaActual(), '_blank')">Ver Mapa Vigente en otra pestaña</button>
+    <button onclick="mostrarMapa()">Ver Mapa Vigente aquí</button>
+
+    <hr>
+
+    <h2>Consulta un Cierre por Fecha</h2>
+    <label for="fechaInput">Selecciona una fecha:</label>
+    <input type="date" id="fechaInput">
+    <button onclick="mostrarMapaPorFecha()">Ver Mapa para esta fecha</button>
   </div>
 
   <script>
@@ -98,7 +140,4 @@
 </body>
 </html>
 
-
-</body>
-</html>
 
