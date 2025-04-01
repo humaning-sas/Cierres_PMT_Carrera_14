@@ -77,24 +77,7 @@
     <button onclick="mostrarMapaPorFecha()">Ver Mapa para esta fecha</button>
     
     <h2>Desvíos y Fechas</h2>
-    <ul>
-      <li id="id1">Desvío 1: 31/03/25 - 14/04/25</li>
-      <li id="id2">Desvío 2: 14/04/25 - 28/04/25</li>
-      <li id="id3">Desvío 3: 28/04/25 - 12/05/25</li>
-      <li id="id4">Desvío 4: 12/05/25 - 26/05/25</li>
-      <li id="id5">Desvío 5: 26/05/25 - 09/06/25</li>
-      <li id="id6">Desvío 6: 09/06/25 - 23/06/25</li>
-      <li id="id7">Desvío 7: 23/06/25 - 07/07/25</li>
-      <li id="id8">Desvío 8: 07/07/25 - 21/07/25</li>
-      <li id="id9">Desvío 9: 21/07/25 - 04/08/25</li>
-      <li id="id10">Desvío 10: 04/08/25 - 18/08/25</li>
-      <li id="id11">Desvío 11: 18/08/25 - 01/09/25</li>
-      <li id="id12">Desvío 12: 01/09/25 - 15/09/25</li>
-      <li id="id13">Desvío 13: 15/09/25 - 29/09/25</li>
-      <li id="id14">Desvío 14: 29/09/25 - 13/10/25</li>
-      <li id="id15">Desvío 15: 13/10/25 - 27/10/25</li>
-      <li id="id16">Desvío 16: 27/10/25 - 10/11/25</li>
-    </ul>
+    <p id="desvioActual"></p>
   </div>
 
   <script>
@@ -119,6 +102,7 @@
         let hoy = new Date();
         let mapaInfo = getMapaPorFecha(hoy);
         document.getElementById("tituloMapa").innerText = `Cierre Vigente: Mapa ${mapaInfo.numero} (${mapaInfo.inicio} - ${mapaInfo.fin})`;
+        document.getElementById("desvioActual").innerText = `Desvío ${mapaInfo.numero}: ${mapaInfo.inicio} - ${mapaInfo.fin}`;
         return mapaInfo.archivo;
     }
 
