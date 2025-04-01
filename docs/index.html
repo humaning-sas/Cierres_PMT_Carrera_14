@@ -64,19 +64,17 @@
 
   <div id="sidebar">
     <h1>¡Bienvenidos al sitio!</h1>
-    <p>Este es el sitio del plan de manejo de tránsito, cierres y desvíos de las obras de renovación de redes.</p>
+    <p>Este es el sitio del plan de manejo de tránsito, cierres y desvíos de las obras de renovación de redes.PLAN DE MANEJO DE TRÁNSITO CONTRATO DE OBRA N°_40_ DE 2025 RENOVACION DE REDES DE ACUEDUCTO Y ALCANTARILLADO EN LA CARRERA 14 DEL MUNICIPIO DE SOGAMOSO - BOYACA
+</p>
     <h2 id="tituloMapa">Cierre Vigente:</h2>
 
     <button onclick="window.open(getMapaActual(), '_blank')">Ver Mapa Vigente en otra pestaña</button>
     <button onclick="mostrarMapa()">Ver Mapa Vigente aquí</button>
     <hr>
 
-    <h2>Consulta un Cierre por Fecha</h2>
-    <label for="fechaInput">Selecciona una fecha:</label>
-    <input type="date" id="fechaInput">
-    <button onclick="mostrarMapaPorFecha()">Ver Mapa para esta fecha</button>
+
     
-    <h2>Desvíos y Fechas</h2>
+    <h2>Desvíos y Fechas del cierre actual</h2>
     <ul id="desviosLista"></ul>
   </div>
 
@@ -111,7 +109,11 @@
       "Desvío Cierre 15 N-S: Dirígete al suroeste por Cra. 14 hacia Cl. 14. Gira a la izquierda con dirección a Cl. 13. Gira a la derecha en la 2ª intersección hacia Cra. 12. Gira a la derecha con dirección a Cl. 10. Gira a la derecha con dirección a Cra. 14.",
       "Desvío Cierre 16 N-S: Dirígete al suroeste por Cra. 14 hacia Cl. 13. Gira a la derecha con dirección a Cl. 11a. Gira a la izquierda en la 1ª intersección hacia Cra. 15. Gira a la izquierda en la 1ª intersección hacia Cl. 11. Gira a la derecha con dirección a Cra. 14."
     ];
-
+    
+    <h2>Consulta un Cierre por Fecha</h2>
+    <label for="fechaInput">Selecciona una fecha:</label>
+    <input type="date" id="fechaInput">
+    <button onclick="mostrarMapaPorFecha()">Ver Mapa para esta fecha</button>
     function getMapaPorFecha(fecha) {
         let diasTranscurridos = Math.floor((fecha - fechaInicio) / (1000 * 60 * 60 * 24));
         let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 7) + 1);  // Cambio aquí de 14 a 7
