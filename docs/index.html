@@ -50,11 +50,11 @@
     // Función para calcular el mapa según una fecha dada
     function getMapaPorFecha(fecha) {
         let diasTranscurridos = Math.floor((fecha - fechaInicio) / (1000 * 60 * 60 * 24));
-        let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 14) + 1);
+        let numeroMapa = Math.min(16, Math.floor(diasTranscurridos / 7) + 1);
         let fechaInicioMapa = new Date(fechaInicio);
-        fechaInicioMapa.setDate(fechaInicioMapa.getDate() + (numeroMapa - 1) * 14);
+        fechaInicioMapa.setDate(fechaInicioMapa.getDate() + (numeroMapa - 1) * 7);
         let fechaFinMapa = new Date(fechaInicioMapa);
-        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 14);
+        fechaFinMapa.setDate(fechaInicioMapa.getDate() + 7);
         return {
             archivo: `mapa_desvios${numeroMapa}.html`,
             inicio: fechaInicioMapa.toLocaleDateString(),
